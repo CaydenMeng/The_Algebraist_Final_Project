@@ -1,0 +1,41 @@
+body {
+  background-color: #000;
+  color: #00ff88;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  padding: 40px;
+}
+
+.container {
+  max-width: 850px;
+  border: 1px solid #00ff88;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,255,136,0.15);
+}
+
+h1 {
+  margin-top: 0;
+  letter-spacing: 1px;
+}
+
+#text {
+  white-space: pre-wrap; /* important: keeps line breaks */
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+button {
+  background: transparent;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  padding: 10px 14px;
+  margin: 6px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+button:hover {
+  background: rgba(0, 255, 136, 0.08);
+}
