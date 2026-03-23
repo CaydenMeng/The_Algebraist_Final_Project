@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Algebraist: Dweller Archive Protocol</title>
+  <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__media" id="background-slot">
+      <video id="background-video-a" class="backdrop__video is-active" muted loop playsinline preload="auto" src="../assets/video/base-background.mp4"></video>
+      <video id="background-video-b" class="backdrop__video" muted loop playsinline preload="auto"></video>
+    </div>
+    <div class="backdrop__gradient"></div>
+  </div>
+
+  <div id="ending-banner" class="ending-banner" hidden>
+    <p id="ending-eyebrow" class="ending-banner__eyebrow"></p>
+    <h2 id="ending-title" class="ending-banner__title"></h2>
+    <p id="ending-note" class="ending-banner__note"></p>
+  </div>
+
+  <main id="app-shell" class="app-shell">
+    <header class="masthead masthead--game">
+      <h1 class="game-title">The Algebraist: Dweller Archive Protocol</h1>
+      <p class="subtitle game-subtitle">
+        Objective: earn a Dweller's trust and gain archive access tied to The List before human command raids the archive.
+      </p>
+    </header>
+
+    <section class="dashboard" aria-label="Negotiation readout">
+      <div class="metric metric--urgency">
+        <span class="metric__label">Urgency</span>
+        <strong class="metric__value" id="urgency-value">0</strong>
+        <div class="meter">
+          <span id="urgency-bar"></span>
+        </div>
+      </div>
+
+      <div class="metric metric--trust">
+        <span class="metric__label">Trust</span>
+        <strong class="metric__value" id="trust-value">0</strong>
+        <div class="meter">
+          <span id="trust-bar"></span>
+        </div>
+      </div>
+
+      <div class="metric metric--archive">
+        <span class="metric__label">Archive Insight</span>
+        <strong class="metric__value" id="archive-value">0</strong>
+        <div class="meter">
+          <span id="archive-bar"></span>
+        </div>
+      </div>
+
+      <div class="status-card">
+        <span class="metric__label">Dweller Read</span>
+        <p id="status-note">Channel initializing.</p>
+        <p class="phase-tag" id="phase-label">Opening</p>
+      </div>
+    </section>
+
+    <section class="experience">
+      <article class="console-panel narrative-panel">
+        <div class="panel-head">
+          <span>Current Exchange</span>
+          <span id="scene-tag">Opening</span>
+        </div>
+
+        <h2 id="scene-title">Initializing protocol...</h2>
+        <p id="text"></p>
+
+        <div id="response-panel" class="response-panel" hidden>
+          <p class="response-panel__eyebrow">Dweller Reply</p>
+          <p id="response-signal" class="response-panel__signal"></p>
+          <p id="response-translation" class="response-panel__translation"></p>
+        </div>
+
+        <div id="choices" class="choices"></div>
+      </article>
+
+      <aside class="sidebar">
+        <section class="console-panel character-panel" id="character-panel">
+          <div class="panel-head">
+            <span>Dweller Signal</span>
+            <span>Live</span>
+          </div>
+
+          <div class="media-frame" id="character-slot">
+            <video id="portrait-video-a" class="character-video is-active" muted loop playsinline preload="auto" src="../assets/video/dweller-neutral.mp4"></video>
+            <video id="portrait-video-b" class="character-video" muted loop playsinline preload="auto"></video>
+          </div>
+
+          <h2 id="speaker-name">Command Briefing</h2>
+          <p id="speaker-note">You can translate Dweller words. You still have to learn what their pauses, jokes, and rituals mean.</p>
+        </section>
+
+        <section class="console-panel archive-panel">
+          <div class="panel-head">
+            <span>Recent Decisions</span>
+            <span>Channel Notes</span>
+          </div>
+
+          <ul id="logbook" class="logbook">
+            <li>Objective: earn archive access tied to The List before command turns the negotiation into a raid.</li>
+          </ul>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="project-note">
+      <div class="project-note__controls">
+        <button id="audio-toggle" class="audio-toggle" type="button" aria-pressed="false">Enable soundtrack</button>
+        <span id="audio-status" class="audio-status">Audio off</span>
+        <a class="audio-toggle audio-toggle--link" href="../">Main Menu</a>
+      </div>
+    </footer>
+  </main>
+
+  <audio id="main-theme" loop preload="auto" src="../assets/audio/main-theme.mp3"></audio>
+  <audio id="good-ending-theme" loop preload="auto" src="../assets/audio/good-ending-theme.mp3"></audio>
+  <audio id="bad-ending-theme" loop preload="auto" src="../assets/audio/bad-ending-theme.mp3"></audio>
+
+  <script src="../src/data/story.js" defer></script>
+  <script src="../src/game/state.js" defer></script>
+  <script src="../src/game/ui.js" defer></script>
+  <script src="../src/game/media.js" defer></script>
+  <script src="../src/game/audio.js" defer></script>
+  <script src="../src/game/app.js" defer></script>
+  <script src="../src/script.js" defer></script>
+</body>
+</html>
