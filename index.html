@@ -1,19 +1,116 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dweller Contact Interface</title>
-  <link rel="stylesheet" href="./src/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Algebraist: Dweller Archive Protocol</title>
+  <link rel="stylesheet" href="./src/menu.css">
 </head>
-<body>
-  <div class="container">
-    <h1>Dweller Contact Console</h1>
-    <p id="text">
-      You are a scholar attempting communication with the Dwellers to access the ancient List.
-    </p>
-    <div id="choices"></div>
+<body class="menu-page">
+  <div class="menu-background" aria-hidden="true">
+    <video class="menu-background__video" autoplay muted loop playsinline preload="auto" src="./assets/video/menu-background.mp4"></video>
+    <div class="menu-background__overlay"></div>
   </div>
 
-  <script src="./src/script.js" defer></script>
+  <main class="menu-hero">
+    <section class="menu-card" aria-label="Main menu">
+      <h1 class="menu-title">The Algebraist: Dweller Archive Protocol</h1>
+      <p class="menu-subtitle">
+        Objective: earn a Dweller's trust and gain archive access tied to The List before human command raids the archive.
+      </p>
+
+      <div class="menu-actions">
+        <a id="start-game-link" href="./game/" class="menu-button menu-button--primary">Start Game</a>
+        <button id="menu-audio-toggle" class="menu-button" type="button" aria-pressed="false">Music: Off</button>
+        <a href="#how-to-panel" class="menu-button">HOW TO PLAY</a>
+      </div>
+
+      <section id="how-to-panel" class="how-to-panel" aria-label="How to play">
+        <h2 class="how-to-panel__title">HOW TO PLAY</h2>
+        <div class="how-to-list">
+          <p><strong>Your job:</strong> talk to a Dweller, earn trust, and reach the archive records tied to The List before command gives up on diplomacy.</p>
+          <p><strong>Urgency</strong> rises when you rush, threaten, or treat the archive like loot.</p>
+          <p><strong>Trust</strong> rises when you stay honest, patient, and respectful of Dweller behaviour.</p>
+          <p><strong>Archive Insight</strong> rises when you ask for context, memory, and meaning instead of fast answers.</p>
+          <p>After every choice, the Dweller answers in symbols first and translation second. Read the reply carefully, then continue.</p>
+          <p>There are only <strong>two outcomes</strong>: earn access through understanding, or lose the archive through panic and extraction.</p>
+        </div>
+        <div class="how-to-panel__actions">
+          <a href="#" class="menu-button">Close</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <audio id="menu-theme" loop preload="auto" src="./assets/audio/main-theme.mp3"></audio>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const audioToggle = document.getElementById("menu-audio-toggle");
+      const menuTheme = document.getElementById("menu-theme");
+      const startGameLink = document.getElementById("start-game-link");
+      let audioEnabled = window.localStorage.getItem("dwellerMusic") === "on";
+
+      function syncAudioLabel() {
+        if (!audioToggle) {
+          return;
+        }
+
+        audioToggle.textContent = audioEnabled ? "Music: On" : "Music: Off";
+        audioToggle.setAttribute("aria-pressed", String(audioEnabled));
+      }
+
+      async function tryPlayMenuTheme() {
+        if (!menuTheme || !audioEnabled) {
+          return false;
+        }
+
+        try {
+          menuTheme.volume = 0.34;
+          await menuTheme.play();
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      async function toggleAudio() {
+        if (!menuTheme) {
+          return;
+        }
+
+        if (audioEnabled) {
+          menuTheme.pause();
+          menuTheme.currentTime = 0;
+          audioEnabled = false;
+          window.localStorage.setItem("dwellerMusic", "off");
+          window.sessionStorage.setItem("dwellerMusicEntry", "off");
+          syncAudioLabel();
+          return;
+        }
+
+        audioEnabled = true;
+        window.localStorage.setItem("dwellerMusic", "on");
+        window.sessionStorage.setItem("dwellerMusicEntry", "resume");
+        await tryPlayMenuTheme();
+        syncAudioLabel();
+      }
+
+      if (audioToggle) {
+        audioToggle.addEventListener("click", toggleAudio);
+      }
+
+      if (startGameLink) {
+        startGameLink.addEventListener("click", () => {
+          window.sessionStorage.setItem("dwellerMusicEntry", audioEnabled ? "resume" : "off");
+        });
+      }
+
+      syncAudioLabel();
+
+      if (audioEnabled) {
+        tryPlayMenuTheme();
+      }
+    });
+  </script>
 </body>
 </html>
